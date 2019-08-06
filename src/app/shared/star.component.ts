@@ -18,4 +18,7 @@ export class StarComponent implements OnChanges{
     starsClicked():void{
         this.starClicked.emit(this.rating);
     }
+
+  
+    
 }

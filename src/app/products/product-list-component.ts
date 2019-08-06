@@ -3,7 +3,6 @@ import { IProduct } from './product';
 import { ProductService } from './product-factory-service';
 
 @Component({
-    selector:"product-list-component",
     templateUrl:"./product-list-component.html"
 })
 
@@ -15,6 +14,7 @@ export class ProductListComponent implements OnInit{
     showingImages:boolean = false; 
     listFilter:string;
     Products:IProduct[];
+    errorMessage:string;
 
     constructor(private productFactory:ProductService){
       this.listFilter='cart';
@@ -34,6 +34,10 @@ export class ProductListComponent implements OnInit{
     }
 
     ngOnInit(): void {
-      this.Products=this.productFactory.getProducts();
+      this.productFactory.getProducts()
+      .subscribe(
+        data=>this.Products=data,
+        error=>this.errorMessage=error,
+      );
     }
 }
