@@ -11,13 +11,13 @@ export class ProductListComponent implements OnInit{
     TitlePage:string = "Product List"
     imageWidth:number = 50;
     imageMargin:number = 2;
-    showingImages:boolean = false; 
+    showingImages:boolean = true; 
     listFilter:string;
     Products:IProduct[];
     errorMessage:string;
 
     constructor(private productFactory:ProductService){
-      this.listFilter='cart';
+      this.listFilter='';
     }
 
     toggleImages():void{

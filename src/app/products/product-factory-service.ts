@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { IProduct } from "./product";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
-import {catchError,tap,filter} from "rxjs/operators";
+import {catchError,tap,filter,map} from "rxjs/operators";
 
 @Injectable({
     providedIn:'root'
@@ -21,11 +21,8 @@ export class ProductService{
     }
 
     getProduct(productId:number):Observable<IProduct>{
-      return this.webClient.get<IProduct>(this.productUrl)
-      .pipe(
-        catchError(this.handleError),
-        filter(data=>data.productId==productId)
-      );
+      return this.getProducts().pipe(
+        map((data:IProduct[])=>data.find(p=>p.productId==productId)));
     }
 
     private handleError(err:HttpErrorResponse){
